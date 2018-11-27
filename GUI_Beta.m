@@ -82,26 +82,25 @@ classdef dsptrial < matlab.apps.AppBase
         RHSTextArea_2Label              matlab.ui.control.Label
         RHSTextArea_2                   matlab.ui.control.TextArea
         SupportTab                      matlab.ui.container.Tab
-        CCBYSA40TextAreaLabel           matlab.ui.control.Label
-        CCBYSA40TextArea                matlab.ui.control.TextArea
-        CodeTextAreaLabel               matlab.ui.control.Label
-        CodeTextArea                    matlab.ui.control.TextArea
+        LICENSETextArea                 matlab.ui.control.TextArea
+        CODETextAreaLabel               matlab.ui.control.Label
+        CODETextArea                    matlab.ui.control.TextArea
     end
 
-
-    methods (Access = private)
     
+    methods (Access = private)
+        
         
     end
-
+    
 
     methods (Access = private)
 
         % Value changed function: input1
         function input1ValueChanged(app, event)
-                    value1 = app.input1.Value;
-                    global value1;              
-              
+            value1 = app.input1.Value;
+            global value1;
+            
         end
 
         % Value changed function: input2
@@ -121,175 +120,175 @@ classdef dsptrial < matlab.apps.AppBase
             stem(app.UIAxes,value1,value2);
             
             
-           
+            
             
         end
 
         % Button pushed function: TimeshiftingButton
         function TimeshiftingButtonPushed(app, event)
-                    app.Xinput.Editable = 'on';           
-                    app.Label_2.Text = sprintf('%s \n %s' , 'Formula : ', 'LHS: DFT{x((n-no))} = RHS: (Wn^kno)*X(k)');
-                    a = app.EnterShift.Value;
-                    global a;
-                    app.ShiftButton.Visible = 'on';
-                    app.ShiftButton.Enable = 'on';
-                    app.ShiftButton2.Visible = 'off';
-                    app.ShiftButton2.Enable = 'off';
-                    app.ShiftButton3.Visible = 'off';
-                    app.ShiftButton3.Enable = 'off';
-                    app.ShiftButton4.Visible = 'off';
-                    app.ShiftButton4.Enable = 'off';
-                    app.Xinput.Value = ' ';
-                    app.EnterShift.Value = ' ';
-                    app.outLHS.Value = ' ';
-                    
+            app.Xinput.Editable = 'on';
+            app.Label_2.Text = sprintf('%s \n %s' , 'Formula : ', 'LHS: DFT{x((n-no))} = RHS: (Wn^kno)*X(k)');
+            a = app.EnterShift.Value;
+            global a;
+            app.ShiftButton.Visible = 'on';
+            app.ShiftButton.Enable = 'on';
+            app.ShiftButton2.Visible = 'off';
+            app.ShiftButton2.Enable = 'off';
+            app.ShiftButton3.Visible = 'off';
+            app.ShiftButton3.Enable = 'off';
+            app.ShiftButton4.Visible = 'off';
+            app.ShiftButton4.Enable = 'off';
+            app.Xinput.Value = ' ';
+            app.EnterShift.Value = ' ';
+            app.outLHS.Value = ' ';
+            
         end
 
         % Button pushed function: ShiftButton
         function ShiftButtonPushed(app, event)
-                     
-                    x = app.Xinput.Value;
-                    x = str2double(strsplit(x,','));
-                    x1 = int8(x);
-                    %LHS compute
-                    a = app.EnterShift.Value; 
-                    a = str2double(a); a = int8(a);
-                    x2 = circshift(x1,a); x3 = fft(x2);
-                  
-                    x3 = num2str(x3);
-                    app.outLHS.Value = x3;
-                    %RHS compute
-                    
-                    %for n=1:length(x4)-1
-                    %  x4(n) = x4(n)*(exp((-i)*2*pi*a*(n-1)))/length(x4);
-                    %end
-                    %x4 = num2str(x4);
-                    %app.outRHS.Value = x3;
-         
+            
+            x = app.Xinput.Value;
+            x = str2double(strsplit(x,','));
+            x1 = int8(x);
+            %LHS compute
+            a = app.EnterShift.Value;
+            a = str2double(a); a = int8(a);
+            x2 = circshift(x1,a); x3 = fft(x2);
+            
+            x3 = num2str(x3);
+            app.outLHS.Value = x3;
+            %RHS compute
+            
+            %for n=1:length(x4)-1
+            %  x4(n) = x4(n)*(exp((-i)*2*pi*a*(n-1)))/length(x4);
+            %end
+            %x4 = num2str(x4);
+            %app.outRHS.Value = x3;
+            
         end
 
         % Button pushed function: FreqshiftingButton
         function FreqshiftingButtonPushed(app, event)
-            app.Xinput.Editable = 'on'; 
+            app.Xinput.Editable = 'on';
             app.Label_2.Text = sprintf('%s \n%s' , 'Formula : ','LHS: DFT{Wn^ln*x(n)} = RHS: X((k-l))n');
-             app.ShiftButton.Visible = 'off';
-             app.ShiftButton.Enable = 'off';
-             app.ShiftButton2.Visible = 'on';
-              app.ShiftButton2.Enable = 'on';
-              app.ShiftButton3.Visible = 'off';
-              app.ShiftButton3.Enable = 'off';
-              app.ShiftButton4.Visible = 'off';
-              app.ShiftButton4.Enable = 'off';
-              app.Xinput.Value = ' ';
-              app.EnterShift.Value = ' ';
-              app.outLHS.Value = ' ';
+            app.ShiftButton.Visible = 'off';
+            app.ShiftButton.Enable = 'off';
+            app.ShiftButton2.Visible = 'on';
+            app.ShiftButton2.Enable = 'on';
+            app.ShiftButton3.Visible = 'off';
+            app.ShiftButton3.Enable = 'off';
+            app.ShiftButton4.Visible = 'off';
+            app.ShiftButton4.Enable = 'off';
+            app.Xinput.Value = ' ';
+            app.EnterShift.Value = ' ';
+            app.outLHS.Value = ' ';
             
         end
 
         % Button pushed function: ShiftButton2
         function ShiftButton2Pushed(app, event)
-                   
+            
             x = app.Xinput.Value;
-                   x = str2double(strsplit(x,','));
-                   x1 = int8(x);
-                   
-                   a = app.EnterShift.Value; 
-                   a = str2double(a); a = int8(a);
-                   Xk = fft(x1); 
-                   X = circshift(Xk,a);
-                  
-                   X = num2str(X);
-                   app.outLHS.Value = X;
+            x = str2double(strsplit(x,','));
+            x1 = int8(x);
+            
+            a = app.EnterShift.Value;
+            a = str2double(a); a = int8(a);
+            Xk = fft(x1);
+            X = circshift(Xk,a);
+            
+            X = num2str(X);
+            app.outLHS.Value = X;
         end
 
         % Button pushed function: ShiftButton3
         function ShiftButton3Pushed(app, event)
-                   x = app.Xinput.Value;
-                   x = str2double(strsplit(x,','));
-                   x1 = int8(x);
-                   
-                   
-                   X2 = fft(x2);
-                   X3 = conj(fft(x1));
-                   app.outLHS.Value = sprintf('%s \n%s','LHS:', 'X2', 'RHS', 'X3');
+            x = app.Xinput.Value;
+            x = str2double(strsplit(x,','));
+            x1 = int8(x);
+            
+            
+            X2 = fft(x2);
+            X3 = conj(fft(x1));
+            app.outLHS.Value = sprintf('%s \n%s','LHS:', 'X2', 'RHS', 'X3');
         end
 
         % Button pushed function: FoldingButton
         function FoldingButtonPushed(app, event)
-            app.Xinput.Editable = 'on'; 
+            app.Xinput.Editable = 'on';
             app.Label_2.Text = sprintf('%s \n%s' , 'Formula : ','LHS: DFT{x((-n))N} = RHS: X((-k))N');
-             app.ShiftButton.Visible = 'off';
-             app.ShiftButton.Enable = 'off';
-             app.ShiftButton2.Visible = 'off';
-              app.ShiftButton2.Enable = 'off';
-              app.ShiftButton3.Visible = 'on';
-              app.ShiftButton3.Enable = 'on';
-              app.ShiftButton4.Visible = 'off';
-              app.ShiftButton4.Enable = 'off';
-              app.ShiftButton3.Text = 'Fold';
-              app.EnterShift.Visible = 'off';
-              app.EnterShift.Enable = 'off';
-              app.EnterShift.Value = ' ';
-              app.AnswerLabel.Visible = 'on';
-              app.ShiftButton3.Position = [352 164 100 22];
-              app.Xinput.Value = ' ';
-              app.EnterShift.Value = ' ';
-              app.outLHS.Value = ' ';
+            app.ShiftButton.Visible = 'off';
+            app.ShiftButton.Enable = 'off';
+            app.ShiftButton2.Visible = 'off';
+            app.ShiftButton2.Enable = 'off';
+            app.ShiftButton3.Visible = 'on';
+            app.ShiftButton3.Enable = 'on';
+            app.ShiftButton4.Visible = 'off';
+            app.ShiftButton4.Enable = 'off';
+            app.ShiftButton3.Text = 'Fold';
+            app.EnterShift.Visible = 'off';
+            app.EnterShift.Enable = 'off';
+            app.EnterShift.Value = ' ';
+            app.AnswerLabel.Visible = 'on';
+            app.ShiftButton3.Position = [352 164 100 22];
+            app.Xinput.Value = ' ';
+            app.EnterShift.Value = ' ';
+            app.outLHS.Value = ' ';
         end
 
         % Button pushed function: SymmetryButton
         function SymmetryButtonPushed(app, event)
-            app.Xinput.Editable = 'on'; 
+            app.Xinput.Editable = 'on';
             app.Label_2.Text = sprintf('%s \n%s' , 'Formula : ','LHS: DFT{x((-n))N} = RHS: X((-k))N');
-             app.ShiftButton.Visible = 'off';
-             app.ShiftButton.Enable = 'off';
-             app.ShiftButton2.Visible = 'off';
-              app.ShiftButton2.Enable = 'off';
-              app.ShiftButton3.Visible = 'off';
-              app.ShiftButton3.Enable = 'off';
-              app.ShiftButton4.Text = 'Check';
-              app.EnterShift.Visible = 'off';
-              app.ShiftButton4.Visible = 'on';
-              app.ShiftButton4.Enable = 'on';
-              app.EnterShift.Value = ' ';
-              app.EnterShift.Enable = 'off';
-              app.AnswerLabel.Enable = 'on';
-              app.ShiftButton4.Position = [352 164 100 22];
-              app.Xinput.Value = ' ';
-              app.EnterShift.Value = ' ';
-              app.outLHS.Value = ' ';
+            app.ShiftButton.Visible = 'off';
+            app.ShiftButton.Enable = 'off';
+            app.ShiftButton2.Visible = 'off';
+            app.ShiftButton2.Enable = 'off';
+            app.ShiftButton3.Visible = 'off';
+            app.ShiftButton3.Enable = 'off';
+            app.ShiftButton4.Text = 'Check';
+            app.EnterShift.Visible = 'off';
+            app.ShiftButton4.Visible = 'on';
+            app.ShiftButton4.Enable = 'on';
+            app.EnterShift.Value = ' ';
+            app.EnterShift.Enable = 'off';
+            app.AnswerLabel.Enable = 'on';
+            app.ShiftButton4.Position = [352 164 100 22];
+            app.Xinput.Value = ' ';
+            app.EnterShift.Value = ' ';
+            app.outLHS.Value = ' ';
         end
 
         % Button pushed function: ShiftButton4
         function ShiftButton4Pushed(app, event)
-             x = app.Xinput.Value;
-                   x = str2double(strsplit(x,','));
-                   x1 = int8(x);
-                   
-                   N = length(x1);
-                   X = fft(x1);
-                   Xstar = conj(X);
-                   app.outLHS.Value = sprintf('%s \n%s' , Xstar,'\n', X ,'WE see that X(N-k) = Xstar');
-                   
-               
+            x = app.Xinput.Value;
+            x = str2double(strsplit(x,','));
+            x1 = int8(x);
+            
+            N = length(x1);
+            X = fft(x1);
+            Xstar = conj(X);
+            app.outLHS.Value = sprintf('%s \n%s' , Xstar,'\n', X ,'WE see that X(N-k) = Xstar');
+            
+            
         end
 
         % Button pushed function: ComputeButton
         function ComputeButtonPushed(app, event)
-                d = app.Input1EditField.Value;
-                d = str2num(d);
-              
-                e= app.Input2EditField.Value;
-                e = str2num(e);
-                
-                  
+            d = app.Input1EditField.Value;
+            d = str2num(d);
+            
+            e= app.Input2EditField.Value;
+            e = str2num(e);
+            
+            
             if length(d) > length(e)
                 N = length(d);
             else
                 N = length(e);
             end
             X1k = fft(d); X2k = fft(e);
-            LHS = d.*e; 
+            LHS = d.*e;
             LHS = fft(LHS);
             L = num2str(LHS);
             app.LHSTextArea.Value = L;
@@ -308,61 +307,61 @@ classdef dsptrial < matlab.apps.AppBase
 
         % Button pushed function: CalculateButton
         function CalculateButtonPushed(app, event)
-                d = app.Input1EditField_2.Value;
-                d = str2num(d);
-              
-                e= app.Input2EditField_2.Value;
-                e = str2num(e);
-                
-               
-                Xd = fft(d); Xe = fft(e);
-                
-                RHS = Xd.*Xe; RHS = ifft(RHS);
-                
-                
-                R = num2str(RHS);
-                app.AnswerTextArea.Value = R;
-                
-                
+            d = app.Input1EditField_2.Value;
+            d = str2num(d);
+            
+            e= app.Input2EditField_2.Value;
+            e = str2num(e);
+            
+            
+            Xd = fft(d); Xe = fft(e);
+            
+            RHS = Xd.*Xe; RHS = ifft(RHS);
+            
+            
+            R = num2str(RHS);
+            app.AnswerTextArea.Value = R;
+            
+            
         end
 
         % Button pushed function: VerifyButton
         function VerifyButtonPushed(app, event)
-                d = app.Input1TextArea.Value;
-                d = str2double(d);  
-                d = int8(d);
-                e= app.Input2TextArea.Value;
-                e = str2double(e);
-                e = int8(e);
-              
-                N = length(d);
-
-
-                x1_star = conj(d);
-
+            d = app.Input1TextArea.Value;
+            d = str2double(d);
+            d = int8(d);
+            e= app.Input2TextArea.Value;
+            e = str2double(e);
+            e = int8(e);
+            
+            N = length(d);
+            
+            
+            x1_star = conj(d);
+            
             for u=1:N
                 LHS(u) = sum(x1_star(u).*e(u));
-  
+                
             end
-                    LHS = sum(LHS);
-              
-
-                                X1 = fft(d);
-                                X2 = fft(e);
-                                X1_star = conj(X1);
-    
-                    for v = 1:N
-                        R(v) = sum(mtimes(X1_star(v),X2(v)));
-                    end
-
-                                RHS = R/N;
-                                RHS = sum(RHS);
-                
-                LHS = num2str(LHS);
-                app.LHSTextArea_2.Value = LHS;
-                RHS = num2str(RHS);
-                app.RHSTextArea_2.Value = RHS;
-                
+            LHS = sum(LHS);
+            
+            
+            X1 = fft(d);
+            X2 = fft(e);
+            X1_star = conj(X1);
+            
+            for v = 1:N
+                R(v) = sum(mtimes(X1_star(v),X2(v)));
+            end
+            
+            RHS = R/N;
+            RHS = sum(RHS);
+            
+            LHS = num2str(LHS);
+            app.LHSTextArea_2.Value = LHS;
+            RHS = num2str(RHS);
+            app.RHSTextArea_2.Value = RHS;
+            
         end
     end
 
@@ -435,7 +434,7 @@ classdef dsptrial < matlab.apps.AppBase
             app.LOGTextArea.FontName = 'Times New Roman';
             app.LOGTextArea.FontSize = 14;
             app.LOGTextArea.Position = [88 37 555 139];
-            app.LOGTextArea.Value = {'Updates:'; ''; '------------------------------'; ''; '10/10/18 : Built Mainframe GUI'; '------------------------------'; ''; '24/10/18 : Completed the properties tab'; ''; '------------------------------'; ''; '6/11/18 : Scrapped model. Built V1.2'; ''; '------------------------------'; ''; '13/11/18: Fixed Interface and added plot tab'; ''; '------------------------------'; ''; '15/11/18: Matlab does not support to non-real arithmetic.'; ''; '------------------------------'; ''; '13/11/18: Symmetry property does not load as Matlab fails to load imaginary values'; ''; ''};
+            app.LOGTextArea.Value = {'Updates:'; ''; '--------------------------'; 'Built Mainframe GUI'; ''; '------------------------------ '; 'Completed the properties tab'; ''; '------------------------------'; ' Scrapped model. Built V1.2'; ''; '------------------------------'; ' Fixed Interface and added plot tab'; ''; '------------------------------'; 'Matlab does not support to non-real arithmetic.'; ''; '------------------------------'; ''; 'Symmetry property does not load as Matlab fails to load imaginary values'; ''; '------------------------------'; ''; 'Added More Properties'; ''; '------------------------------'; ''; 'Parsevals identity Bug pulled'; ''; '------------------------------'; ''};
 
             % Create Label
             app.Label = uilabel(app.IntroTab);
@@ -846,40 +845,36 @@ classdef dsptrial < matlab.apps.AppBase
             % Create SupportTab
             app.SupportTab = uitab(app.TabGroup);
             app.SupportTab.Title = 'Support';
+            app.SupportTab.BackgroundColor = [1 1 1];
 
-            % Create CCBYSA40TextAreaLabel
-            app.CCBYSA40TextAreaLabel = uilabel(app.SupportTab);
-            app.CCBYSA40TextAreaLabel.HorizontalAlignment = 'right';
-            app.CCBYSA40TextAreaLabel.FontName = 'Arial';
-            app.CCBYSA40TextAreaLabel.FontSize = 18;
-            app.CCBYSA40TextAreaLabel.FontWeight = 'bold';
-            app.CCBYSA40TextAreaLabel.FontColor = [0 0 1];
-            app.CCBYSA40TextAreaLabel.Position = [14 358 122 22];
-            app.CCBYSA40TextAreaLabel.Text = 'CC BY-SA 4.0';
+            % Create LICENSETextArea
+            app.LICENSETextArea = uitextarea(app.SupportTab);
+            app.LICENSETextArea.HorizontalAlignment = 'center';
+            app.LICENSETextArea.FontName = 'Arial';
+            app.LICENSETextArea.FontWeight = 'bold';
+            app.LICENSETextArea.FontColor = [0 0.451 0.7412];
+            app.LICENSETextArea.Position = [15 138 651 254];
+            app.LICENSETextArea.Value = {'Permission '; ''; 'MIT License'; ''; 'Copyright (c) 2018 Adway Kanhere'; ''; 'Permission is hereby granted, free of charge, to any person obtaining a copy'; 'of this software and associated documentation files (the "Software"), to deal'; 'in the Software without restriction, including without limitation the rights'; 'to use, copy, modify, merge, publish, distribute, sublicense, and/or sell'; 'copies of the Software, and to permit persons to whom the Software is'; 'furnished to do so, subject to the following conditions:'; ''; 'The above copyright notice and this permission notice shall be included in all'; 'copies or substantial portions of the Software.'; ''; 'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR'; 'IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,'; 'FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE'; 'AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER'; 'LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,'; 'OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE'; 'SOFTWARE.'; ''};
 
-            % Create CCBYSA40TextArea
-            app.CCBYSA40TextArea = uitextarea(app.SupportTab);
-            app.CCBYSA40TextArea.HorizontalAlignment = 'center';
-            app.CCBYSA40TextArea.FontName = 'Arial';
-            app.CCBYSA40TextArea.Position = [147 138 519 254];
-            app.CCBYSA40TextArea.Value = {'This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. '; 'To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.'; ''; ''; 'You are free to:'; 'Share — copy and redistribute the material in any medium or format'; 'Adapt — remix, transform, and build upon the material'; 'for any purpose, even commercially.'; ' This license is acceptable for Free Cultural Works.'; 'The licensor cannot revoke these freedoms as long as you follow the license terms.'; ''; 'Under the following terms:'; 'Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.'; ''; 'ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.'};
+            % Create CODETextAreaLabel
+            app.CODETextAreaLabel = uilabel(app.SupportTab);
+            app.CODETextAreaLabel.HorizontalAlignment = 'right';
+            app.CODETextAreaLabel.FontName = 'Arial';
+            app.CODETextAreaLabel.FontSize = 18;
+            app.CODETextAreaLabel.FontWeight = 'bold';
+            app.CODETextAreaLabel.FontColor = [0 0.451 0.7412];
+            app.CODETextAreaLabel.Position = [35 59 67 41];
+            app.CODETextAreaLabel.Text = 'CODE';
 
-            % Create CodeTextAreaLabel
-            app.CodeTextAreaLabel = uilabel(app.SupportTab);
-            app.CodeTextAreaLabel.HorizontalAlignment = 'right';
-            app.CodeTextAreaLabel.FontName = 'Arial';
-            app.CodeTextAreaLabel.FontSize = 18;
-            app.CodeTextAreaLabel.FontWeight = 'bold';
-            app.CodeTextAreaLabel.Position = [27 76 55 22];
-            app.CodeTextAreaLabel.Text = 'Code ';
-
-            % Create CodeTextArea
-            app.CodeTextArea = uitextarea(app.SupportTab);
-            app.CodeTextArea.HorizontalAlignment = 'center';
-            app.CodeTextArea.FontName = 'Arial';
-            app.CodeTextArea.FontSize = 14;
-            app.CodeTextArea.Position = [97 40 569 60];
-            app.CodeTextArea.Value = {'Check out the full code at'; ''; 'www.github.com/YngYoda/DSPGui_Beta'; ''; ''; ''};
+            % Create CODETextArea
+            app.CODETextArea = uitextarea(app.SupportTab);
+            app.CODETextArea.HorizontalAlignment = 'center';
+            app.CODETextArea.FontName = 'Arial';
+            app.CODETextArea.FontSize = 14;
+            app.CODETextArea.FontAngle = 'italic';
+            app.CODETextArea.FontColor = [0 0.451 0.7412];
+            app.CODETextArea.Position = [147 40 519 60];
+            app.CODETextArea.Value = {'Check out the full code at'; ''; 'www.github.com/YngYoda/DSPGui_Beta'; ''; 'Pull Requests Accepted'; ''};
         end
     end
 
